@@ -2,6 +2,7 @@
   "name": "chain",
   "version": "1.0.0",
   "description": "A sugar for promise",
+  "keywords": ["promise", "es6", "chain", "serial call", "parallel call", "ajax", "axios"],
   "main": "index.js",
   "repository": "git@github.com:rouberg/chain.git",
   "author": "rouberg@outlook.com",
