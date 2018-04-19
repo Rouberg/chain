@@ -9,6 +9,23 @@ npm install @rou/chain --save
 
 ##Useage
 
+Regular textbook-style promise calls are too verbose.
+
++ An object's method, in order to keep context, need to use arrow function to maintain context this.
++ Take unnecessary care when promise rejected again and again, 
+but actually they are similar and do not have to be repeated each time.
+Promise is often more concerned the scene of the promise have been resolved.
++ when calls several asynchronous functions in parallel, the arguments are promise arrays, not functions. 
+This is not consistent with serial calls.
+
+At the same time, use a promise directly, it will either show too much, or it will be easy to couple the dependencies into the promise itself.
+
+I hope the promise represents a potentially asynchronous (and, of course, synchronous) operation. 
+What happens before and after this operation, promise should not have to care.
+
+promise describe business logic separately, and `chain` combine the dependencies, this is the purpose of the `chain` design.
+so that a promise only cares about its own affairs, and the dependencies are described by `chain`.
+
 ```javascript
 import chain from '@rou/chain'
 const asyncAdd5 = function (value) {
@@ -109,36 +126,3 @@ type: function
 a general function to handle reject reason when promise rejected. 
 
 it has a default value of `console.error`, it should replace with a function such as your DIY `toast`, to toast reason in window.
-
-
-#### next description is optional.
-
-`chain`是一个语法糖，使promise调用更舒服。
-
-常规的教科书式promise调用太过冗长，不够健康。
-
-+ 一个对象的函数，为了在调用时上下文this指针再指回对象，需要使用箭头函数不断地维护上下文。
-+ 分散了不必要的精力在了promise的异常捕获和对rejected promise的处理上，但在一个项目中，它们一般是较为统一的，不必在每次写promise时重复。
-一个promise，往往较为关心fulfilled时的流程。一次一次地写catch函数？我想这太无聊了。
-如果把同步代码直接嵌入异步代码中，又容易把两段实现不同功能的函数耦合到一起。
-+ 把几个异步函数并行调用，参数是promise数组，而不是一些函数，这和串行调用不够统一。
-
-同时，直接使用promise的话，要么会显示太啰嗦，要么容易把依赖关系耦合进promise本身。
-我希望promise代表着一段可能是异步的(当然，这也可以是同步的)操作，在这段操作之前和之后会发生什么，这个promise不用关心。
-如果业务中不同的promise有依赖关系，那就再另作描述。
-这就是`chain`设计的目的，让一个promise只关心自己的事，相互间的依赖关系用`chain`来描述。
-
-假如有a，b，c三个函数，当函数a返回的promise状态变成了fulfilled时调用函数b，然后函数a返回的promise状态变成了fulfilled时调用函数c，
-最后返回函数c的返回值，直接使用promise的写法是这样的
-
-```javascript
-const a = b = c = value => Promise.resolve (value + 1)
-a(1).then(value => b(value)).then(value => c(value)).then(console.log) // => 4
-```
-但是我们也许可以使用另外一种风格来描述依赖关系：
-
-```javascript
-import chain from '@rou/chain'
-const a = b = c = value => Promise.resolve(value + 1)
-chain(a, b, c, console.log) // => 4
-```
