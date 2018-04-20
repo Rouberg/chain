@@ -4,7 +4,7 @@ A syntax sugar for promise, make function promise each other better.
 ##Install
 
 ```bash
-npm install @rou/chain --save
+npm install chain-nemo --save
 ```
 
 ##Useage
@@ -27,7 +27,7 @@ promise describe business logic separately, and `chain` combine the dependencies
 so that a promise only cares about its own affairs, and the dependencies are described by `chain`.
 
 ```javascript
-import chain from '@rou/chain'
+import chain from 'chain-nemo'
 const asyncAdd5 = function (value) {
   return new Promise(resolve => {
     setTimeout(x => resolve(x + 5), 100, value)

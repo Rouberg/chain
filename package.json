@@ -1,6 +1,6 @@
 {
-  "name": "chain",
-  "version": "1.0.0",
+  "name": "chain-nemo",
+  "version": "1.0.1",
   "description": "A sugar for promise",
   "keywords": ["promise", "es6", "chain", "serial call", "parallel call", "ajax", "axios"],
   "main": "index.js",
