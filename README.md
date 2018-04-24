@@ -11,12 +11,12 @@ npm install chain-nemo --save
 
 Regular textbook-style promise calls are too verbose.
 
-+ An object's method, in order to keep context, need to use arrow function to maintain context this.
-+ Take unnecessary care when promise rejected again and again, 
++ An object's method, in order to keep context(`this`), need to use arrow function to maintain.
++ Do not take unnecessary care again and again when promise rejected, 
 but actually they are similar and do not have to be repeated each time.
 Promise is often more concerned the scene of the promise have been resolved.
-+ when calls several asynchronous functions in parallel, the arguments are promise arrays, not functions. 
-This is not consistent with serial calls.
++ when call some function parallel by `Promise.all()`, the arguments are an array of promise (exactly, data is allowable too), not function (or an array of function). 
+This API of parallel call is not similar with the situation of serial call.
 
 At the same time, use a promise directly, it will either show too much, or it will be easy to couple the dependencies into the promise itself.
 
@@ -108,7 +108,7 @@ fn will be serial called. prev one finish, and the next one invoked only.
 
 accept an array of function, array could contain function of any number.
 
-in this way, fn will be parallel called.
+in this way, fn will be called parallel.
 
 ### chain([fn, fn, [fn, fn, ...fn]])
 
@@ -116,7 +116,8 @@ chain support combine serial call and parallel call.
 
 in even level of array, it will serial call, in odd level of array, it will parallel call.
 
-link this: `chain([fn1, fn2, [fn3, fn4], [fn5, fn6]], fn7)`, fn3, fn4 will serial called, fn5, fn6 will serial called to, 
+link this: `chain([fn1, fn2, [fn3, fn4], [fn5, fn6]], fn7)`, fn3, fn4 will serial called, fn5, fn6 will serial called 
+, 
 and them parallel called with fn1, fn2, them both fulfilled, fn7 called follow.
 
 ### chain.rejected
