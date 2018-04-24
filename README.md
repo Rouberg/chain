@@ -1,13 +1,13 @@
 # chain
 A syntax sugar for promise, make function promise each other better.
 
-##Install
+## Install
 
 ```bash
 npm install chain-nemo --save
 ```
 
-##Useage
+## Useage
 
 Regular textbook-style promise calls are too verbose.
 
